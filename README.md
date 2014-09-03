@@ -25,6 +25,10 @@ pip install -r requirements.txt
 ./run_tests.sh
 ```
 
+测试结果
+--------
+分别对 `gunicorn/uwsgi` `gevent/sync` `pymysql/mysql-python` 做了8组实验，对比它们的结果。
+
 数据库不在本机:
 
 ```
@@ -47,7 +51,10 @@ uwsgi+gevent+mysql-python
 Requests/sec:    338.59
 ```
 
-数据库为localhost:
+这个项目中，使用gevent worker是同步方式并发的3倍，而且这种提高无需改动业务代码，只需要在wsgi中做monkey_patch，把socket等一些同步耗时异步化。同时注意到，需要使用pymysql，用c写的mysql-python无法被patch，可能会阻塞。
+
+
+另附数据库为localhost的结果:
 
 ```
 $ ./run_tests.sh
@@ -68,3 +75,5 @@ Requests/sec:    440.70
 uwsgi+gevent+mysql-python
 Requests/sec:    547.82
 ```
+
+因为数据库在等待io ready上的耗时很少，mysql-python本身性能更好。
