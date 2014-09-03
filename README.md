@@ -1,12 +1,29 @@
 Gevent+Django Benckmark
 =========================
 
+安装依赖
+--------
+
+```
+pip install -r requirements.txt
+```
+
+测试工具[wrk](https://github.com/wg/wrk)及nginx。
+
 业务逻辑
 --------
 
 这个项目中业务逻辑不复杂，是对现有sns代码的抽象和模拟。
 * GET请求对应的动作是在view中HTTP请求一次外部服务，并返回数据库中最新记录，外部服务选择了gitlab的登录页，平均响应时间在35ms左右，数据库记录限定在了20条，返回json。
 * POST请求在数据库中新插入一条记录。
+
+测试方法
+--------
+配置好nginx，监听端口`7897`，并 `uwsgi_pass unix:///tmp/uwsgiaaa.sock`，gunicorn自己选了一个随机端口监听HTTP请求，无需配置nginx。
+
+```
+./run_tests.sh
+```
 
 数据库不在本机:
 
