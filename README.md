@@ -19,7 +19,7 @@ pip install -r requirements.txt
 
 测试方法
 --------
-配置好nginx，监听端口`7897`，并 `uwsgi_pass unix:///tmp/uwsgiaaa.sock`，gunicorn自己选了一个随机端口监听HTTP请求，无需配置nginx。
+配置好nginx，监听端口`7897`，并 `uwsgi_pass unix:///tmp/uwsgiaaa.sock`，gunicorn自己选了一个随机端口监听HTTP请求，无需配置nginx。bm.lua中随机选择GET:POST方法中的一种，几率分别是3:1，模拟500并发，持续10s。
 
 ```
 ./run_tests.sh
