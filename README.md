@@ -34,21 +34,25 @@ pip install -r requirements.txt
 ```
 ./run_tests.sh
 gunicorn+gvent+pymysql
-Requests/sec:    422.45
+Requests/sec:    434.85
 gunicorn+gvent+mysql-python
-Requests/sec:    269.16
+Requests/sec:    272.14
 gunicorn+sync+pymysql
-Requests/sec:    136.39
+Requests/sec:    136.94
 gunicorn+sync+mysql-python
-Requests/sec:    133.76
+Requests/sec:    155.29
 uwsgi+sync+pymysql
-Requests/sec:    138.00
+Requests/sec:    133.59
 uwsgi+sync+mysql-python
-Requests/sec:    152.30
+Requests/sec:    134.46
 uwsgi+gevent+pymysql
-Requests/sec:    446.14
+Requests/sec:    468.75
 uwsgi+gevent+mysql-python
-Requests/sec:    338.59
+Requests/sec:    363.55
+uwsgi+sync+mysql-connector-python
+Requests/sec:    150.37
+uwsgi+gevent+mysql-connector-python
+Requests/sec:    432.67
 ```
 
 这个项目中，使用gevent worker是同步方式并发的3倍，而且这种提高无需改动业务代码，只需要在wsgi中做monkey_patch，把socket等一些同步耗时异步化。同时注意到，需要使用pymysql，用c写的mysql-python无法被patch，可能会阻塞。
