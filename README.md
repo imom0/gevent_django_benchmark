@@ -27,7 +27,7 @@ pip install -r requirements.txt
 
 测试结果
 --------
-分别对 `gunicorn/uwsgi` `gevent/sync` `pymysql/mysql-python` 做了8组实验，对比它们的结果。
+分别对 `gunicorn/uwsgi` `gevent/sync` `pymysql/mysql-python` `gevent下的mysql-connector-python` 做了10组实验，对比它们的结果。
 
 数据库不在本机:
 
