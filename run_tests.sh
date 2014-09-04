@@ -54,3 +54,14 @@ echo 'uwsgi+gevent+mysql-python'
 uwsgi --env PYMYSQL=0 --gevent 100 -s /tmp/uwsgiaaa.sock --wsgi-file myproj/gwsgi.py --master --pidfile=uwsgi.pid --processes 9 --daemonize uwsgi.log --listen 1024
 run_test
 kill -INT `cat uwsgi.pid`
+
+
+echo 'uwsgi+sync+mysql-connector-python'
+uwsgi --env DJANGO_SETTINGS_MODULE=myproj.mcp_settings -s /tmp/uwsgiaaa.sock --wsgi-file myproj/wsgi.py --master --pidfile=uwsgi.pid --processes 9 --daemonize uwsgi.log --listen 1024
+run_test
+kill -INT `cat uwsgi.pid`
+
+echo 'uwsgi+gevent+mysql-connector-python'
+uwsgi --env DJANGO_SETTINGS_MODULE=myproj.mcp_settings --gevent 100 -s /tmp/uwsgiaaa.sock --wsgi-file myproj/gwsgi.py --master --pidfile=uwsgi.pid --processes 9 --daemonize uwsgi.log --listen 1024
+run_test
+kill -INT `cat uwsgi.pid`
